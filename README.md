@@ -1,21 +1,30 @@
 # NDI TVC F-16 MATLAB Model
 
-## 簡介
+## Introduction
 
-這是一個基於 MATLAB 的 F-16 飛機推力向量控制（TVC）模型。該專案的目的是模擬和控制 F-16 飛機的推力向量，以實現更有效率的機動性和更精確的飛行控制。透過實現推力向量控制（TVC）演算法，本項目可在 F-16 模型中應用垂直和水平推力向量的動態控制，模擬其在各種飛行條件下的表現。
+This is a MATLAB-based model of the F-16 aircraft thrust vector control (TVC). The goal of the project is to simulate and control the thrust vectoring of the F-16 aircraft to achieve more efficient maneuverability and more precise flight control. By implementing the Thrust Vector Control (TVC) algorithm, this project can apply dynamic control of vertical and horizontal thrust vectors in the F-16 model to simulate its performance in various flight conditions.
 
-## 版本需求
+## Version requirements
 
-## 如何使用
+Windows 10 (version 1909 or higher)
+GPU:1080 or up  
 
-1. **複製項目到本地：**
-   在終端機或命令列中執行以下命令來複製倉庫：
+## How to use
+
+1. **Clome the Project：**
    ```bash
    git clone https://github.com/yourusername/NDI-TVC-F16-MATLAB.git
-2. **Open matlab**
-3. **Open the NDI project:**
-
+2. **Grab all archives from src to external**
+3. **Open matlab**
+4. **Open the NDI project:**
+   Just like the environment of the Python
+6. **Open the RunThis_LM.m, then run**
 
 ## Function
 
+Preload()
+Plot()
+create_Orthogonal_Multisine()
+
 ## Result
+
