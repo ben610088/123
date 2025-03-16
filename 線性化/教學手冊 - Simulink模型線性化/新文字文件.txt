@@ -1,0 +1,206 @@
+/////////////////////////////////////////////////////////////////////////////
+【State 狀態】
+
+https://www.mathworks.com/help/simulink/ug/decide-how-to-save-block-states-and-simulation-operating-points.html
+[觀念] 比較 States、Final states、Final states and Save final operating point 三者的差異
+
+https://www.mathworks.com/help/simulink/ug/model-operating-point-for-faster-simulation.html
+[觀念] [重要] 使用模型操作點(Model Operating Point)加快模擬工作流程
+1. 模擬一次啟動階段(startup phase)。
+2. 在啟動階段結束時保存代表系統操作點(operating point)的快照。
+3. 將此快照(snapshot)用作針對不同條件或操作的一組模擬中每個的初始狀態(initial state)。
+
+要在模擬中的給定點保存模型的快照，請將最終狀態與操作點一起保存(save the final states with the operating point)。
+快照保存為一個  Simulink.op.ModelOperatingPoint 物件，您可以將其指定為從該操作點開始的後續模擬的初始狀態( initial state)。
+因為模型操作點(Model Operating Point)包括有關系統在模擬中該點的狀態的完整信息，所以從初始操作點(initial operating point)開始的模擬結果與從頭開始運行的模擬結果相同。
+
+若保存沒有操作點的最終狀態( saving final states without the operating point)，就只會保存模塊的連續和離散狀態，這些狀態只是該模型完整模擬狀態的子集合。它們不包括解算器(solver)、執行引擎( execution engine)或模塊的隱藏狀態的相關資訊，這些資訊是正確執行模塊所必需的。如此，從這最終狀態(Final states)(沒有操作點)開始的模擬結果會跟從頭開始運行的模擬結果不相同。
+
+https://www.mathworks.com/help/simulink/ug/initial-state-operating-point-resume-simulation.html
+[重要] 指定模擬的初始狀態
+
+https://www.mathworks.com/help/simulink/slref/simulink.op.modeloperatingpoint.html
+指令：Simulink.op.ModelOperatingPoint
+https://www.mathworks.com/help/slcontrol/ug/getinputstruct.html
+指令：getinputstruct( )
+https://www.mathworks.com/help/slcontrol/ug/getstatestruct.html
+指令：getstatestruct( )
+
+https://www.mathworks.com/help/simulink/ug/decide-how-to-save-block-states-and-simulation-operating-points.html
+保存模塊狀態和仿真操作點
+
+https://www.mathworks.com/help/stateflow/ug/what-is-a-simstate.html
+在Stateflow中使用操作點
+https://www.mathworks.com/help/stateflow/ug/dividing-a-long-simulation-into-segments.html
+[重要] 將長模擬劃分為多個部分(包含Stateflow)
+第 1 步：定義操作點
+                1. 打開sf_boiler模型。
+                2. 打開 Configuration Parameters 配置參數對話框。
+                3. 啟用保存操作點。在Data Import/Export窗格中：
+                   a.勾選 Final states 最終狀態。
+                   b.輸入名稱，例如 xFinalOP。
+                   c. 勾選 Save final operating point 保存最終操作點。
+                4. 定義此模擬段的開始和停止時間。在Solver窗格中，將Start time設置為0並將Stop time設置為400。
+                5. 單擊OK確定。
+                6. 開始模擬。仿真模型時，您將 t = 400 處的完整操作點(complete operating point) 保存在 MATLAB base workspace 的變數 xFinalOP 中。
+                7. 禁用保存操作點。在 Configuration Parameters 對話框的 Data Import/Export 窗格中，取消勾選 Save final operation point 和 Final states 參數，然後單擊OK。
+                     此步驟可防止您覆蓋您在上一步中保存的操作點。
+第 2 步：加載操作點
+                1. 啟用操作點的加載。在 Configuration Parameters 對話框的Data Import/Export窗格中，勾選 Initial state 並輸入操作點的變數名稱：xFinalOP。
+                2. 定義此模擬段的新停止時間。在 Configuration Parameters 對話框的Solver窗格中，將Stop time設置為600。
+                     將 Stop time 設置為大於保存操作點時的時間值。
+                     您無需輸入新的Start time開始時間，因為模擬會從中斷處繼續。
+                     註：在加載操作點之前，您可以用指令編輯更改 ModelOperatingPoint 物件的 Start time，Simulink 將會使用保存在 ModelOperatingPoint 物件的 Start time
+第 3 步：模擬特定段
+
+https://www.mathworks.com/help/stateflow/ug/best-practices-for-saving-the-simstate-of-a-chart.html
+保存 Stateflow Chart 操作點的最佳實踐
+
+
+https://www.mathworks.com/help/slcontrol/ug/simulate-simulink-model-at-specific-operating-point.html
+在特定操作點初始化模型以進行仿真 - Model Linearizer APP
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+【Analysis Points 分析點】
+https://www.mathworks.com/help/slcontrol/ug/specify-model-portion-to-linearize.html
+指定要線性化的模型部分
+
+https://www.mathworks.com/help/slcontrol/ug/specify-portion-of-model-to-linearize-in-simulink-model.html
+在 "Simulink Model" 指定要線性化的模型部分
+將分析點直接保存在模型中或以圖形方式顯示模型中的分析點
+
+https://www.mathworks.com/help/slcontrol/ug/specify-portion-of-model-to-linearize-in-linear-analysis-tool.html
+在 "Model Linearizer" APP 指定要線性化的模型部分
+在不更改 Simulink 模型的情況下使用 "Model Linearizer" APP 以交互方式對模型進行線性化。
+使用此方法，您可以為模型指定多個開環或閉環傳遞函數。
+
+https://www.mathworks.com/help/slcontrol/ug/open-loop-response-of-control-system-for-stability-margin-analysis.html
+計算開迴路響應
+從非線性模型中手動移除反饋信號會改變模型工作點並生成不同的線性化模型。有關詳細信息，請參閱「軟體如何處理迴路斷開」。
+要消除反饋迴路的影響，請在不手動斷開信號線的情況下插入開環分析點。
+https://www.mathworks.com/help/slcontrol/ug/how-the-software-treats-loop-openings.html
+軟體如何處理迴路斷開
+
+模型中的所有模塊都會影響操作點。
+所以，不能手動刪除迴授路徑，斷開迴路。 要用 loop break 斷點。
+
+
+/////////////////////////////////////////////////////////////////////////////
+【Operating Point 操作點】
+
+https://www.mathworks.com/help/slcontrol/steady-state-operating-points.html?s_tid=CRUX_lftnav
+總目錄 - 操作點
+
+https://www.mathworks.com/help/slcontrol/ug/view-and-modify-operating-points.html
+查看和修改操作點
+
+https://www.mathworks.com/help/slcontrol/ug/import-and-export-specifications-for-operating-point-search.html
+匯入和匯出搜尋操作點的規格
+指令：initopspec( )
+
+https://www.mathworks.com/help/slcontrol/ug/steady-state-operating-point-trimming.html
+[觀念] 計算穩態操作點
+
+https://www.mathworks.com/help/slcontrol/ug/compute-steady-state-operating-points-from-specifications.html
+[觀念] 根據規格計算穩態操作點
+https://www.mathworks.com/help/slcontrol/ug/compute-operating-points-from-specifications-using-linear-analysis-tool.html
+使用 Model Linearizer" APP 根據規格(Specifications)計算操作點
+指令：operspec( )、findop( )
+
+https://www.mathworks.com/help/slcontrol/ug/linearize-at-trimmed-operating-point.html
+在配平的操作點作線性化 (Linearize at Trimmed Operating Point)
+
+https://www.mathworks.com/help/slcontrol/ug/steady-state-operating-points-from-simulation.html
+使用快照(Snapshots)創建操作點
+要驗證操作點是否處於穩定狀態( steady state)，請使用該操作點初始化模型，進行模擬，並檢查關鍵訊號和狀態是否處於平衡狀態。
+有關使用操作點初始化模型的更多信息，請參閱「在特定操作點仿真Simulink模型」。
+筆記：如果您的 Simulink 模型具有內部狀態(internal states)，請不要在您使用快照(Snapshots)所創建的操作點處對模型進行線性化。
+             相反，請嘗試使用仿真快照或在基於優化搜索的操作點對模型進行線性化。有關更多信息，請參閱「使用內部狀態表示處理塊」。
+
+https://www.mathworks.com/help/slcontrol/ug/handling-blocks-with-internal-state-representation.html
+處理具有內部狀態表示的塊
+
+https://www.mathworks.com/help/slcontrol/ug/simulate-simulink-model-at-specific-operating-point.html
+[重要] 在特定操作點初始化模型以進行仿真 - Model Linearizer APP
+https://www.mathworks.com/help/slcontrol/ug/initialize-steady-state-operating-point-search-using-simulation-snapshot.html
+[重要] 使用快照(Snapshots)初始化穩態操作點的搜尋
+如果您知道模型到達穩態工作點附近的大致時間，則可以使用仿真來獲取狀態值，以用作數值優化的初始條件。
+
+https://www.mathworks.com/help/slcontrol/ug/computing-operating-point-snapshots-at-triggered-events.html
+[重要] 計算觸發事件的操作點快照 (Compute Operating Point Snapshots at Triggered Events)
+
+
+https://www.mathworks.com/help/slcontrol/ug/change-operating-point-search-optimization-settings.html
+更改操作點最佳化搜尋的設置
+https://www.mathworks.com/help/slcontrol/ug/compute-operating-points-using-custom-constraints-and-objective-functions.html
+使用自定義約束和目標函數計算操作點
+例如可以自定義約束左右舵面相同
+
+
+https://www.mathworks.com/help/slcontrol/ug/linearize.html
+指令：linearize( )
+https://www.mathworks.com/help/slcontrol/ug/linearize.html#:~:text=mdl%2Cblockpath%2Cop)%3B-,Specify%20State%20Order,-in%20Linearized%20Model
+指定狀態順序
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+【批量計算操作點 operating point】
+https://www.mathworks.com/help/slcontrol/ug/batch-compute-steady-state-operating-points-for-parameter-variation.html
+批量計算參數變化的穩態工作點
+
+https://www.mathworks.com/help/slcontrol/ug/findop.html
+findop( )
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+【線性化】
+https://www.youtube.com/watch?v=5gEattuH3tI
+[觀念] Trimming and Linearization, Part 1: What Is Linearization?
+https://www.youtube.com/watch?v=K1oMF4684OQ
+[觀念] Trimming and Linearization, Part 2: The Practical Side of Linearization
+
+https://www.youtube.com/watch?v=BydCIDbeRXc
+[重要] Trim, Linearization and Control Design for an Aircraft  (在配平的操作點作線性化)
+
+
+
+https://www.mathworks.com/help/slcontrol/ug/linearizing-nonlinear-models.html
+[觀念] 線性化非線性模型
+當您對不同的操作點進行線性化時，非線性模型可以有兩個非常不同的線性近似值。.......初始值不同，也會得到不同的線性模型。
+
+模型中的所有模塊都會影響操作點。
+所以，不能手動刪除迴授路徑，斷開迴路。 要用 loop break 斷點。
+
+https://www.mathworks.com/help/slcontrol/ug/exact-linearization-algorithm.html
+[觀念] 精確線性化算法
+Simulink ® Control Design™軟件使用逐塊方法對模型進行線性化。該軟件單獨對 Simulink 模型中的每個模塊進行線性化，並通過組合各個模塊的線性化來生成整個系統的線性化。
+軟件從操作點確定每個模塊的輸入和狀態級別，並為每個模塊的這些級別請求雅可比( Jacobian)。
+
+https://www.mathworks.com/help/slcontrol/ug/linearize-simulink-model.html
+未指定操作點，使用模型初始條件作線性化 (Linearize Simulink Model at Model Operating Point)
+
+https://www.mathworks.com/help/slcontrol/ug/linearize-at-trimmed-operating-point.html
+[重要] 在配平的操作點作線性化 (Linearize at Trimmed Operating Point)
+
+https://www.mathworks.com/help/slcontrol/ug/linearize-at-simulation-snapshot.html
+[重要] 在模擬快照處作線性化 (Linearize at Simulation Snapshot)
+
+https://www.mathworks.com/help/slcontrol/ug/linearize-at-triggered-simulation-events.html
+[重要] 在觸發的事件作線性化 (Linearize at Triggered Simulation Events)
+https://www.mathworks.com/help/slcontrol/ug/computing-operating-point-snapshots-at-triggered-events.html
+[重要] 計算觸發事件的操作點快照 (Compute Operating Point Snapshots at Triggered Events)
+
+
+https://www.mathworks.com/help/slcontrol/ug/time-domain-validation-of-linearization-results.html
+[重要] 驗證時域中的線性化 Validate Linearization In Time Domain
+
+https://www.mathworks.com/help/slcontrol/ug/linearization-validation-in-frequency-domain-using-frestimate.html
+[重要] 在命令行中驗證頻域中的線性化 Validate Linearization in Frequency Domain at Command Line
+
+https://www.mathworks.com/help/slcontrol/ug/visualize-bode-response-of-simulink-model-during-simulation.html
+在仿真過程中可視化Simulink模型的波德響應

@@ -1,0 +1,11 @@
+【記得先將InputData及OutputData檔案裁切過後再放入此資料夾】
+步驟1：執行 RunThis_james.m 取得想要的 GeometryData
+步驟2：打開並執行 tool_timeseries_cutter.m
+步驟3：將 Workspace 中的 InputData 及 OutputData 另存新檔到此資料夾中，並在資料夾 「 TVC2_h10000V323alpha10_elevator5 」進行分類
+步驟4：配合FEM程式，將適合的InputData及OutputData放置於此sysID_timeDomain資料夾中
+[註]：FEM程式
+      test case = 1 ~  4 --> 全開
+      test case = 5 ~  8 --> 縱向
+      test case = 9 ~ 12 --> 橫向
+
+目前存放的是：TVC2_h10000V323alpha10_elevator5-longitudinal-關掉autopilot並乘上0再加配平值
