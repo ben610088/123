@@ -5,7 +5,7 @@
 This is a MATLAB-based model of the F-16 aircraft thrust vector control (TVC). The goal of the project is to simulate and control the thrust vectoring of the F-16 aircraft to achieve more efficient maneuverability and more precise flight control. By implementing the Thrust Vector Control (TVC) algorithm, this project can apply dynamic control of vertical and horizontal thrust vectors in the F-16 model to simulate its performance in various flight conditions.
 
 ## Version requirements
-
+Sugesstion
 Windows 10 (version 1909 or higher)
 GPU:1080 or up  
 
