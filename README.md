@@ -14,17 +14,58 @@ GPU:1080 or up
 1. **Clome the Project：**
    ```bash
    git clone https://github.com/yourusername/NDI-TVC-F16-MATLAB.git
-2. **Grab all archives from src to external**
+2. **Open the src file**
+   Cut all the file in the src file,then moving to external(123 file)  
 3. **Open matlab**
+   
 4. **Open the NDI project:**
-   Just like the environment of the Python
-6. **Open the RunThis_LM.m, then run**
+   NDI project is in the 123 file(that you cut in src) 
+5. **Open the RunThis_LM.m, then run**
 
-## Function
+## Function from matlab file
 
 Preload()
 Plot()
 create_Orthogonal_Multisine()
 
 ## Result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Just test
+<p>水平線：</p>
+
+<hr />
+
+<p>列表：</p>
+
+<ul>
+<li>張三</li>
+<li>李四</li>
+<li>王二</li>
+</ul>
+
+<p>編號列表：</p>
+
+<ol>
+<li>不論</li>
+<li>三七</li>
+<li>二十一</li>
+</ol>
+
 
