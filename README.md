@@ -22,14 +22,25 @@ GPU:1080 or up
    NDI project is in the 123 file(that you cut in src) 
 5. **Open the RunThis_LM.m, then run**
 
-## Function from matlab file
+## Function Introduction
 
-Preload()
-Plot()
-create_Orthogonal_Multisine()
+**Preload()**
+
+All the parameter are in this fil.
+I defines the parameter in different state with function
+
+**Plot()**
+
+Because this is the big project with many graphs, I use this file(function) to draw the plot that can express many states.
+
+**NDI**
+
 
 ## Result
 
+You will earn the Data from RunThis_LM.m with different state from F16 model.
+Like row angle, pitch angle, velocity,etc.
+The image will be presented as a line graph.
 
 
 
@@ -47,7 +58,7 @@ create_Orthogonal_Multisine()
 
 
 
-Just test
+Just test for me
 <p>水平線：</p>
 
 <hr />
